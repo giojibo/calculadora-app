@@ -1,0 +1,59 @@
+ion-grid {
+  margin-top: 20px;
+}
+
+ion-button {
+  height: 60px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+}
+
+.display-area {
+  text-align: right;
+  padding: 10px;
+  --background: #f4f4f4;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.display-area h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.display-area h2 {
+  margin: 0;
+  color: #0a55e0;
+  font-size: 1.5rem;
+}
+.boton-funcion {
+  --background: #9757d3; // rojo mate
+  color: white;
+}
+
+.boton-num {
+  --background: #1e1e91;
+  color: white;
+}
+
+.boton-operacion {
+  --background: #4593e0;
+  color: white;
+}
+
+.boton-igual {
+  --background: black;
+  color: white;
+}
+
+.boton-clear {
+  --background: white;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}
+
+ion-content{
+  --background: #fff;
+}

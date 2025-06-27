@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-center">Calculadora Científica</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="display-area">
+    <h1>{{ operacion || '0' }}</h1>
+    <h2>= {{ resultado }}</h2>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let op of funcionesLista">
+        <ion-button expand="block" class="boton-funcion" (click)="ejecutarCientifica(op)">
+          {{ op }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let fila of numerosLista">
+      <ion-col *ngFor="let num of fila">
+        <ion-button expand="block" class="boton-num" (click)="agregarNumero(num)">
+          {{ num }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" class="boton-operacion" (click)="cambiarSigno()">±</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" class="boton-num" (click)="agregarNumero('0')">0</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" class="boton-num" (click)="agregarNumero('.')">.</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" class="boton-igual" (click)="calcular()">=</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngFor="let op of operaciones">
+        <ion-button expand="block" class="boton-operacion" (click)="ejecutarOperacion(op)">
+          {{ op }}
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" class="boton-clear" (click)="borrar()">C</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
