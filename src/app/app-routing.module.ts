@@ -4,7 +4,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TabsComponent } from './components/tabs/tabs.component';
 
-const routes: Routes = [
+const routes: Routes =
+[
   {
     path: '',
     component: TabsComponent,
@@ -24,9 +25,8 @@ const routes: Routes = [
       }
     ]
   },
-
-
 ];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),

@@ -6,14 +6,10 @@
 
 <ion-content>
   <ion-button expand="block" color="primary" (click)="limpiarHistorial()">Limpiar</ion-button>
-
   <ion-card *ngFor="let dato of historial">
     <ion-card-content>
       <p><strong>{{dato}}</strong></p>
     </ion-card-content>
   </ion-card>
-
-
-
 </ion-content>
 

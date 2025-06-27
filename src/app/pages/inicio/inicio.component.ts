@@ -14,7 +14,8 @@ import { HistorialService } from 'src/app/services/historial.service';
   styleUrls: ['./inicio.component.scss'],
   standalone: false,
 })
-export class InicioComponent  implements OnInit {
+export class InicioComponent  implements OnInit
+{
 
   operacion: string = '';
   resultado: number = 0;
@@ -23,11 +24,12 @@ export class InicioComponent  implements OnInit {
   acumulado: number = 0;
   operador: string | null = null;
 
-  numerosLista: string[][] = [
-  ['1', '2', '3'],
-  ['4', '5', '6'],
-  ['7', '8', '9']
-];
+  numerosLista: string[][] =
+  [
+    ['1', '2', '3'],
+    ['4', '5', '6'],
+    ['7', '8', '9']
+  ];
 
   funcionesLista: string[]=
   [
@@ -41,13 +43,13 @@ export class InicioComponent  implements OnInit {
 
 
   constructor(
-
     private calc: CalculadoraService,
     private historial: HistorialService
   )
   {}
 
-  ngOnInit() {
+  ngOnInit()
+  {
 
   }
 
@@ -57,7 +59,8 @@ export class InicioComponent  implements OnInit {
     this.operacion += num;
   }
 
-  ejecutarOperacion(op: string) {
+  ejecutarOperacion(op: string)
+  {
     const numero = parseFloat(this.valorActual);
     if (!this.operador) {
       this.acumulado = numero;
@@ -70,7 +73,8 @@ export class InicioComponent  implements OnInit {
     this.resultado = this.acumulado;
   }
 
-  aplicarOperacion(op: string, a: number, b: number): number {
+  aplicarOperacion(op: string, a: number, b: number): number
+  {
     switch (op) {
       case '+': return this.calc.suma(a, b);
       case '-': return this.calc.resta(a, b);
@@ -82,52 +86,65 @@ export class InicioComponent  implements OnInit {
     }
   }
 
-  ejecutarCientifica(func: string) {
-  const num = parseFloat(this.valorActual);
-  let res = 0;
+  ejecutarCientifica(func: string)
+  {
+    if (!this.valorActual) return;
 
-  try {
-    switch (func) {
-      case '√': res = this.calc.raizCuadrada(num); break;
-      case 'log': res = this.calc.logaritmo(num); break;
-      case 'ln': res = this.calc.logaritmoNatural(num); break;
-      case 'sin': res = this.calc.seno(num); break;
-      case 'cos': res = this.calc.coseno(num); break;
-      case 'tan': res = this.calc.tangente(num); break;
-      case 'asin': res = this.calc.arcoSeno(num); break;
-      case 'acos': res = this.calc.arcoCoseno(num); break;
-      case 'atan': res = this.calc.arcoTangente(num); break;
-      default: throw new Error('Función no soportada');
+    const num = parseFloat(this.valorActual);
+    let res = 0;
+
+    try {
+      switch (func) {
+        case '√': res = this.calc.raizCuadrada(num); break;
+        case 'log': res = this.calc.logaritmo(num); break;
+        case 'ln': res = this.calc.logaritmoNatural(num); break;
+        case 'sin': res = this.calc.seno(num); break;
+        case 'cos': res = this.calc.coseno(num); break;
+        case 'tan': res = this.calc.tangente(num); break;
+        case 'asin': res = this.calc.arcoSeno(num); break;
+        case 'acos': res = this.calc.arcoCoseno(num); break;
+        case 'atan': res = this.calc.arcoTangente(num); break;
+        default: throw new Error('Función no soportada');
+      }
+
+      const expresion = `${func}(${num})`;
+      this.operacion = expresion;
+      this.resultado = res;
+      this.valorActual = res.toString();
+
+      this.historial.agregarAlHistorial(expresion, res);
+
+    } catch (error: any) {
+      alert(error.message);
+      this.limpiarCalculadora();
     }
-
-    this.valorActual = res.toString();
-    this.operacion = `${func}(${num})`;
-    this.resultado = res;
-    this.historial.agregarAlHistorial(this.operacion, this.resultado);
-
-  } catch (error: any) {
-    alert(error.message); // O usa un IonToast
   }
-}
 
+  calcular()
+  {
+    if (!this.operador || !this.valorActual) return;
+    const num = parseFloat(this.valorActual);
 
-calcular() {
-  if (!this.operador || !this.valorActual) return;
-  const num = parseFloat(this.valorActual);
+    try {
+      const resultadoFinal = this.aplicarOperacion(this.operador, this.acumulado, num);
 
-  try {
-    this.resultado = this.aplicarOperacion(this.operador, this.acumulado, num);
-    this.historial.agregarAlHistorial(`${this.acumulado} ${this.operador} ${num}`, this.resultado);
-    this.operacion = this.resultado.toString();
-    this.valorActual = this.resultado.toString();
-    this.operador = null;
-  } catch (error: any) {
-    alert(error.message);
+      const expresion = `${this.acumulado} ${this.operador} ${num}`;
+
+      this.historial.agregarAlHistorial(expresion, resultadoFinal);
+
+      this.operacion = expresion;
+      this.resultado = resultadoFinal;
+
+      this.valorActual = resultadoFinal.toString();
+      this.operador = null;
+    } catch (error: any) {
+      alert(error.message);
+      this.limpiarCalculadora();
+    }
   }
-}
 
-
-  borrar() {
+  limpiarCalculadora()
+  {
     this.operacion = '';
     this.resultado = 0;
     this.valorActual = '';
@@ -135,19 +152,25 @@ calcular() {
     this.operador = null;
   }
 
-  cambiarSigno() {
-  if (!this.valorActual) return;
-
-  if (this.valorActual.startsWith('-')) {
-    this.valorActual = this.valorActual.substring(1);
-  } else {
-    this.valorActual = '-' + this.valorActual;
+  borrar()
+  {
+    this.operacion = '';
+    this.resultado = 0;
+    this.valorActual = '';
+    this.acumulado = 0;
+    this.operador = null;
   }
 
-  // Actualiza también la operación visualmente
-  this.operacion = this.valorActual;
-}
+  cambiarSigno()
+  {
+    if (!this.valorActual) return;
 
+    if (this.valorActual.startsWith('-')) {
+      this.valorActual = this.valorActual.substring(1);
+    } else {
+      this.valorActual = '-' + this.valorActual;
+    }
 
-
+    this.operacion = this.valorActual;
+  }
 }

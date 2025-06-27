@@ -7,25 +7,28 @@ import { HistorialService } from 'src/app/services/historial.service';
   styleUrls: ['./historial.component.scss'],
   standalone: false
 })
-export class HistorialComponent  implements OnInit {
-
+export class HistorialComponent  implements OnInit
+{
   historial: string[] = [];
 
   constructor(
     private historialServices: HistorialService,
-  ) { }
+  )
+  { }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.actualizarHistorial();
   }
 
-  public actualizarHistorial(){
+  public actualizarHistorial()
+  {
     this.historial = this.historialServices.obtenerHistorial();
   }
 
-  public limpiarHistorial(){
+  public limpiarHistorial()
+  {
     this.historialServices.limpiarHistorial();
     this.actualizarHistorial();
   }
-
 }
