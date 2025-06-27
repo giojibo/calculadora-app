@@ -106,7 +106,7 @@ export class InicioComponent  implements OnInit {
     this.historial.agregarAlHistorial(this.operacion, this.resultado);
 
   } catch (error: any) {
-    alert(error.message); // O usa un IonToast
+    alert(error.message); //Mensaje que muestra el error 
   }
 }
 
@@ -126,7 +126,6 @@ calcular() {
   }
 }
 
-
   borrar() {
     this.operacion = '';
     this.resultado = 0;
@@ -143,8 +142,6 @@ calcular() {
   } else {
     this.valorActual = '-' + this.valorActual;
   }
-
-  // Actualiza también la operación visualmente
   this.operacion = this.valorActual;
 }
 
